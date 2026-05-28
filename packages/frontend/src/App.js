@@ -10,6 +10,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [, setTick] = useState(0);
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('todoAppTheme');
     if (savedTheme) {
@@ -27,6 +28,14 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('todoAppTheme', theme);
   }, [theme]);
+
+  // Auto-refresh overdue status every 60 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTick(t => t + 1);
+    }, 60_000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Fetch todos on mount
   useEffect(() => {

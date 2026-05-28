@@ -26,7 +26,7 @@ MUST appear earlier in the task list to enforce the Red-Green-Refactor cycle.
 
 **Purpose**: Confirm baseline before any changes are made. No new dependencies or configuration needed — this feature is frontend-only with no new packages.
 
-- [ ] T001 Confirm existing frontend tests pass as baseline before any changes: `cd packages/frontend && npm test`
+- [X] T001 Confirm existing frontend tests pass as baseline before any changes: `cd packages/frontend && npm test`
 
 **Checkpoint**: All existing tests green — ready to begin
 
@@ -38,7 +38,7 @@ MUST appear earlier in the task list to enforce the Red-Green-Refactor cycle.
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T002 Add `.overdue-due-date { color: var(--danger-color); }` rule to `packages/frontend/src/App.css`
+- [X] T002 Add `.overdue-due-date { color: var(--danger-color); }` rule to `packages/frontend/src/App.css`
 
 **Checkpoint**: CSS infrastructure ready — all user story phases may now begin
 
@@ -55,14 +55,14 @@ MUST appear earlier in the task list to enforce the Red-Green-Refactor cycle.
 > **Constitution Principle II**: Red-Green-Refactor is mandatory. These tasks MUST
 > precede all implementation tasks for this user story.
 
-- [ ] T003 [US1] Write overdue indicator test cases (4 scenarios: past due date → class present; today → absent; future → absent; null due date → element absent) in `packages/frontend/src/components/__tests__/TodoCard.test.js`
-- [ ] T004 [US1] Write 60-second auto-refresh test using `jest.useFakeTimers` (advance 60 s → overdue state re-evaluated) in `packages/frontend/src/components/__tests__/TodoCard.test.js`
+- [X] T003 [US1] Write overdue indicator test cases (4 scenarios: past due date → class present; today → absent; future → absent; null due date → element absent) in `packages/frontend/src/components/__tests__/TodoCard.test.js`
+- [X] T004 [US1] Write 60-second auto-refresh test using `jest.useFakeTimers` (advance 60 s → overdue state re-evaluated) in `packages/frontend/src/components/__tests__/TodoCard.test.js`
 
 ### Implementation for User Story 1
 
-- [ ] T005 [US1] Add `isOverdue` pure function (dueDate + completed guards; string comparison per research.md) to `packages/frontend/src/components/TodoCard.js`
-- [ ] T006 [US1] Apply `overdue-due-date` class conditionally to due date `<p>` element per overdue-ui-contract.md in `packages/frontend/src/components/TodoCard.js`
-- [ ] T007 [P] [US1] Add `tick` state counter and 60-second `setInterval` (with cleanup) inside `useEffect` in `packages/frontend/src/App.js`
+- [X] T005 [US1] Add `isOverdue` pure function (dueDate + completed guards; string comparison per research.md) to `packages/frontend/src/components/TodoCard.js`
+- [X] T006 [US1] Apply `overdue-due-date` class conditionally to due date `<p>` element per overdue-ui-contract.md in `packages/frontend/src/components/TodoCard.js`
+- [X] T007 [P] [US1] Add `tick` state counter and 60-second `setInterval` (with cleanup) inside `useEffect` in `packages/frontend/src/App.js`
 
 **Checkpoint**: At this point, User Story 1 is fully functional and independently testable
 
@@ -76,12 +76,12 @@ MUST appear earlier in the task list to enforce the Red-Green-Refactor cycle.
 
 ### Tests for User Story 2 *(Write FIRST — must FAIL before implementation begins)*
 
-- [ ] T008 [US2] Write completed-todo test (completed + past due date → `overdue-due-date` class absent) in `packages/frontend/src/components/__tests__/TodoCard.test.js`
-- [ ] T009 [US2] Write mark-complete transition test (overdue todo → check complete → indicator disappears immediately) in `packages/frontend/src/components/__tests__/TodoCard.test.js`
+- [X] T008 [US2] Write completed-todo test (completed + past due date → `overdue-due-date` class absent) in `packages/frontend/src/components/__tests__/TodoCard.test.js`
+- [X] T009 [US2] Write mark-complete transition test (overdue todo → check complete → indicator disappears immediately) in `packages/frontend/src/components/__tests__/TodoCard.test.js`
 
 ### Implementation for User Story 2
 
-- [ ] T010 [US2] Confirm `isOverdue` function gates on `todo.completed` field and returns false for completed todos in `packages/frontend/src/components/TodoCard.js` (no separate change needed if T005 is correct — verify and document)
+- [X] T010 [US2] Confirm `isOverdue` function gates on `todo.completed` field and returns false for completed todos in `packages/frontend/src/components/TodoCard.js` (no separate change needed if T005 is correct — verify and document)
 
 **Checkpoint**: At this point, User Stories 1 AND 2 are fully functional and independently testable
 
@@ -95,12 +95,12 @@ MUST appear earlier in the task list to enforce the Red-Green-Refactor cycle.
 
 ### Tests for User Story 3 *(Write FIRST — must FAIL before implementation begins)*
 
-- [ ] T011 [US3] Write light-mode test (overdue todo in light theme → due date text uses `--danger-color` / `#c62828`) in `packages/frontend/src/components/__tests__/TodoCard.test.js`
-- [ ] T012 [US3] Write dark-mode test (overdue todo in dark theme → due date text uses `--danger-color` / `#ef5350`) in `packages/frontend/src/components/__tests__/TodoCard.test.js`
+- [X] T011 [US3] Write light-mode test (overdue todo in light theme → due date text uses `--danger-color` / `#c62828`) in `packages/frontend/src/components/__tests__/TodoCard.test.js`
+- [X] T012 [US3] Write dark-mode test (overdue todo in dark theme → due date text uses `--danger-color` / `#ef5350`) in `packages/frontend/src/components/__tests__/TodoCard.test.js`
 
 ### Implementation for User Story 3
 
-- [ ] T013 [US3] Confirm `--danger-color` token is defined for both light (`#c62828`) and dark (`#ef5350`) modes in `packages/frontend/src/styles/theme.css` — no change expected per research.md; verify and document
+- [X] T013 [US3] Confirm `--danger-color` token is defined for both light (`#c62828`) and dark (`#ef5350`) modes in `packages/frontend/src/styles/theme.css` — no change expected per research.md; verify and document
 
 **Checkpoint**: All three user stories are fully functional and independently testable in both themes
 
@@ -110,9 +110,9 @@ MUST appear earlier in the task list to enforce the Red-Green-Refactor cycle.
 
 **Purpose**: Lint validation and manual end-to-end verification per quickstart.md.
 
-- [ ] T014 [P] Run full frontend test suite and confirm 100% pass rate: `cd packages/frontend && npm test`
-- [ ] T015 [P] Run ESLint from repository root and resolve any errors: `npm run lint`
-- [ ] T016 Follow quickstart.md manual validation checklist (6 scenarios: past due date → red; today → no red; future → no red; complete overdue → red disappears; theme toggle light/dark → indicator visible)
+- [X] T014 [P] Run full frontend test suite and confirm 100% pass rate: `cd packages/frontend && npm test`
+- [X] T015 [P] Run ESLint from repository root and resolve any errors: `npm run lint`
+- [X] T016 Follow quickstart.md manual validation checklist (6 scenarios: past due date → red; today → no red; future → no red; complete overdue → red disappears; theme toggle light/dark → indicator visible)
 
 ---
 

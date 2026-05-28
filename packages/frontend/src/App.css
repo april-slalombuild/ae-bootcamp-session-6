@@ -567,6 +567,11 @@ p {
   }
 }
 
+/* Overdue Todo Indicator */
+.overdue-due-date {
+  color: var(--danger-color);
+}
+
 /* Focus Visible for keyboard navigation */
 button:focus-visible,
 input:focus-visible,
