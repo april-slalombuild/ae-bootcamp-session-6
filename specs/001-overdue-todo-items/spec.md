@@ -20,7 +20,7 @@ A user opens the todo app and immediately sees which of their incomplete tasks h
 
 **Acceptance Scenarios**:
 
-1. **Given** an incomplete todo with a due date in the past, **When** the user views the todo list, **Then** the todo displays a clear visual overdue indicator (e.g., distinct color, label, or icon).
+1. **Given** an incomplete todo with a due date in the past, **When** the user views the todo list, **Then** the todo displays a clear visual overdue indicator using the danger color applied to the due date text.
 2. **Given** an incomplete todo with a due date set to today, **When** the user views the todo list, **Then** the todo does NOT display an overdue indicator.
 3. **Given** an incomplete todo with a due date in the future, **When** the user views the todo list, **Then** the todo does NOT display an overdue indicator.
 4. **Given** an incomplete todo with no due date, **When** the user views the todo list, **Then** the todo does NOT display an overdue indicator.
@@ -62,7 +62,7 @@ The overdue visual indicator is clearly visible and legible in both light mode a
 - What happens when a todo has no due date? → It is never considered overdue; no indicator is shown.
 - What happens when a todo is due exactly today? → It is not overdue; no indicator is shown (overdue means strictly past).
 - What happens when a completed todo has a past due date? → No overdue indicator; completed status takes precedence.
-- How does the system handle due dates when the user's local clock is incorrect? → Overdue status is determined by the client's local date at the time the page loads; no server-side date enforcement is applied.
+- How does the system handle due dates when the user's local clock is incorrect? → Overdue status is determined by the client's local date (recalculated at least once per minute); no server-side date enforcement is applied.
 
 ## Requirements *(mandatory)*
 
@@ -73,9 +73,10 @@ The overdue visual indicator is clearly visible and legible in both light mode a
 - **FR-003**: Completed todos MUST NOT display an overdue indicator, regardless of their due date.
 - **FR-004**: Todos without a due date MUST NOT display an overdue indicator.
 - **FR-005**: Todos with a due date of today MUST NOT display an overdue indicator.
-- **FR-006**: The overdue indicator MUST be visually distinguishable using the design system's danger color (red) for both light and dark modes.
+- **FR-006**: The overdue indicator MUST be visually distinguishable using the design system's danger color (red) for both light and dark modes. The indicator is color-only (no additional text label or icon); it is applied specifically to the due date text on the todo card.
 - **FR-007**: When a user marks an overdue todo as complete, the overdue indicator MUST disappear without requiring a page reload.
 - **FR-008**: The overdue determination MUST be based on the current local date (date portion only; time of day is ignored).
+- **FR-009**: The overdue status MUST auto-refresh periodically (at least once per minute) while the page remains open, so that a todo whose due date passes midnight becomes overdue without requiring a page reload.
 
 ### Key Entities
 
@@ -92,10 +93,18 @@ The overdue visual indicator is clearly visible and legible in both light mode a
 
 ## Assumptions
 
-- Overdue status is computed on the client side by comparing the todo's due date to the current local date at the time of rendering. No backend changes are required.
+- Overdue status is computed on the client side by comparing the todo's due date to the current local date. It is recalculated automatically at least once per minute while the page is open, so overdue state updates across midnight without a page reload. No backend changes are required.
 - Due dates are compared at the date level only (YYYY-MM-DD); time-of-day is not considered.
 - The existing todo data model already stores a due date field, so no schema or API changes are needed.
 - "Overdue" is defined as a due date strictly before today (yesterday or earlier). A todo due today is not overdue.
 - The overdue indicator is a visual enhancement to the existing todo card; the existing card layout and interaction model (checkbox, edit, delete) remain unchanged.
 - The feature is scoped to display-only changes — no new filtering, sorting, or grouping by overdue status is included.
 - Desktop-focused display; no mobile-specific styling is required for the indicator.
+
+## Clarifications
+
+### Session 2026-05-28
+
+- Q: What is the intended visual treatment for the overdue indicator — color-only, color + icon, or color + text label? → A: Color-only; apply the danger color to a card element (e.g., border or due date text); no additional icon or text label.
+- Q: Should overdue status auto-refresh if the page is left open past midnight, or is static-at-render acceptable? → A: Dynamic — overdue status must auto-refresh at least once per minute while the page is open.
+- Q: Which specific card element should receive the danger color for the overdue indicator? → A: The due date text only.
