@@ -13,6 +13,10 @@
         "/^bash \\.specify/scripts/bash/setup-plan\\.sh --json$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^bash \\.specify/scripts/bash/setup-tasks\\.sh --json 2>/dev/null \\|\\| echo \"SCRIPT_NOT_FOUND\"$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }
