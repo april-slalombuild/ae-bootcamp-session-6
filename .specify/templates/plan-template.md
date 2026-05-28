@@ -40,7 +40,21 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Verify compliance with all five principles from `.specify/memory/constitution.md`:
+
+- [ ] **I. Code Quality & Simplicity**: Does the design avoid unnecessary complexity?
+  Will naming, formatting, and linting rules be met? Any violations documented in
+  Complexity Tracking below?
+- [ ] **II. Test-First Development**: Are tests planned before implementation tasks?
+  Does the task list enforce Red-Green-Refactor order? Is 80%+ coverage achievable?
+- [ ] **III. Scope Discipline**: Does this feature stay within functional requirements?
+  Are any out-of-scope items present? Is a spec update required before proceeding?
+- [ ] **IV. Design System Adherence**: Do UI components use the defined color palette,
+  8px grid spacing, and typography? Are light/dark modes covered? Are destructive
+  actions gated behind confirmation dialogs?
+- [ ] **V. Full-Stack Monorepo Architecture**: Does new code land in the correct package
+  (`packages/frontend/` or `packages/backend/`)? Is API communication routed through
+  the service layer only? Are npm workspace conventions followed?
 
 ## Project Structure
 
